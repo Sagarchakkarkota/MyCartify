@@ -17,8 +17,7 @@ type CartState = {
   updateQty: (id: string | number, qty: number) => void;
   total: () => number;
 };
-
-const useCartStore = create<CartState>()(
+export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],

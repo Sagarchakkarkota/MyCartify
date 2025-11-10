@@ -3,6 +3,11 @@ const commonColors = {
   secondary: '#6C757D',
   error: '#E63946',
   success: '#28A745',
+  white: '#FFFFFF',
+  black: '#000000',
+  lightGray: '#D3D3D3',
+  gray: '#808080',
+  darkGray: '#A9A9A9',
 };
 export const colors = {
   light: {
@@ -10,13 +15,13 @@ export const colors = {
     background: '#FFFFFF',
     text: '#1E1E1E',
     card: '#F5F5F5',
-    border: '#E0E0E0',
+    border: commonColors.lightGray,
   },
   dark: {
     ...commonColors,
     background: '#121212',
     text: '#FFFFFF',
     card: '#1E1E1E',
-    border: '#2C2C2C',
+    border: commonColors.lightGray,
   },
 };

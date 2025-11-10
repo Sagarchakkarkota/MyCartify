@@ -1,33 +1,31 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
+import { styles } from '../screens/HomeScreen/HomeScreen.styles';
 
-export default function ProductCard({ item, onPress }: any) {
+interface ProductCardProps {
+  item: any;
+  onPress: (id: number) => void;
+}
+
+const ProductCard = ({ item, onPress }: ProductCardProps) => {
   return (
-    <Pressable style={styles.card} onPress={() => onPress(item.id)}>
+    <Pressable style={styles.cardContainer} onPress={() => onPress(item.id)}>
       <Image
-        source={{ uri: item.thumbnail || item.images?.[0] }}
-        style={styles.img}
+        source={{ uri: item.thumbnail }}
+        style={styles.cardImage}
+        resizeMode="cover"
       />
-      <View style={{ flex: 1, paddingLeft: 12 }}>
-        <Text numberOfLines={2} style={styles.title}>
+      <View style={styles.cardInfo}>
+        <Text numberOfLines={1} style={styles.cardTitle}>
           {item.title}
         </Text>
-        <Text style={styles.price}>₹{item.price}</Text>
+        <Text numberOfLines={2} style={styles.cardDesc}>
+          {item.description}
+        </Text>
+        <Text style={styles.cardPrice}>₹{item.price}</Text>
       </View>
     </Pressable>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  card: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 12,
-    marginVertical: 8,
-    elevation: 1,
-  },
-  img: { width: 80, height: 80, borderRadius: 8 },
-  title: { fontSize: 16, fontWeight: '600' },
-  price: { marginTop: 8, color: 'green', fontWeight: '700' },
-});
+export default ProductCard;
