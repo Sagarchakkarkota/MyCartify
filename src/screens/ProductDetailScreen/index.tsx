@@ -1,13 +1,14 @@
 import React from 'react';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import { FlatList, ScrollView, Text, View } from 'react-native';
 import CustomCarousel from '../../components/CustomCarousel';
+import CustomLoader from '../../components/CustomLoader';
 import ScreenWrapper from '../../components/ScreenWrapper';
-import { colors } from '../../theme/colors';
 import AddToCartButton from './components/AddToCartButton';
 import Rating from './components/Rating';
+import ReviewCard from './components/ReviewCard';
 import useProductDetail from './hooks/useProductDetail';
 import { styles } from './ProductDetail.styles';
-import ReviewCard from './components/ReviewCard';
+import { moderateScale } from '../../utils/scale';
 
 export default function ProductDetailScreen({ route }: any) {
   const { id } = route.params;
@@ -16,14 +17,9 @@ export default function ProductDetailScreen({ route }: any) {
   } = useProductDetail({ id });
 
   if (getSingleProducts?.isLoading || !getSingleProducts?.data) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color={colors.light.primary} />
-      </View>
-    );
+    return <CustomLoader />;
   }
   const productData = getSingleProducts?.data;
-  console.log(productData);
   return (
     <ScreenWrapper style={{ padding: 0 }}>
       <ScrollView>
@@ -35,9 +31,13 @@ export default function ProductDetailScreen({ route }: any) {
           <Rating productData={productData} />
           <AddToCartButton product={productData} />
           <Text style={styles.title}>Rating & Reviews</Text>
-          {productData?.reviews?.map((item: any, index: number) => (
-            <ReviewCard reviewData={item} key={index} />
-          ))}
+          <FlatList
+            data={productData.reviews}
+            horizontal
+            renderItem={({ item }) => <ReviewCard reviewData={item} />}
+            keyExtractor={(item, index) => String(index)}
+            contentContainerStyle={styles.reviewContainer}
+          />
         </View>
       </ScrollView>
     </ScreenWrapper>

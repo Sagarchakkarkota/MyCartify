@@ -1,5 +1,7 @@
 import React from 'react';
 import { Pressable, Text, StyleSheet } from 'react-native';
+import { colors } from '../theme/colors';
+import { moderateScale } from '../utils/scale';
 
 export default function CustomButton({ title, onPress, style }: any) {
   return (
@@ -11,10 +13,10 @@ export default function CustomButton({ title, onPress, style }: any) {
 
 const styles = StyleSheet.create({
   btn: {
-    padding: 12,
-    backgroundColor: '#2563eb',
-    borderRadius: 8,
+    padding: moderateScale(12),
+    backgroundColor: colors.light.primary,
+    borderRadius: moderateScale(20),
     alignItems: 'center',
   },
-  text: { color: '#fff', fontWeight: '600' },
+  text: { color: colors.light.white, fontWeight: '600' },
 });

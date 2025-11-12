@@ -3,28 +3,21 @@ import React from 'react';
 import Rating from './Rating';
 import { moderateScale, scaleFont } from '../../../utils/scale';
 import { colors } from '../../../theme/colors';
-
+import { hexToRgba } from '../../../utils/hexToRgba.utility';
+import { format } from 'date-fns';
+import { styles } from '../ProductDetail.styles';
 const ReviewCard = ({ reviewData }: { reviewData: any }) => {
-  // {rating: 2, comment: 'Very disappointed!', date: '2025-04-30T09:41:02.053Z', reviewerName: 'Layla Young', reviewerEmail: 'layla.young@x.dummyjson.com'}
   return (
-    <View
-      style={{
-        padding: moderateScale(10),
-        borderRadius: moderateScale(20),
-        backgroundColor: colors.light.extraLightGray,
-        gap: 4,
-      }}
-    >
-      <View style={{ flexDirection: 'row', gap: 4 }}>
+    <View style={styles.reviewCardContainer}>
+      <View style={styles.reviewCardTitleContainer}>
         <Rating productData={reviewData} />
-        <Text style={{ fontSize: scaleFont(14), fontWeight: 600 }}>
-          {reviewData?.reviewerName}
+        <Text style={styles.reviewCardTitle}>{reviewData?.reviewerName}</Text>
+        <Text style={styles.reviewCardDate}>
+          {format(new Date(reviewData?.date), 'dd MMM yyyy')}
         </Text>
       </View>
-      <Text style={{ fontSize: scaleFont(14) }}>{reviewData?.comment}</Text>
-      <Text style={{ fontSize: scaleFont(14) }}>
-        {reviewData?.reviewerEmail}
-      </Text>
+      <Text style={styles.reviewCardDate}>{reviewData?.comment}</Text>
+      <Text style={styles.reviewCardMail}>{reviewData?.reviewerEmail}</Text>
     </View>
   );
 };

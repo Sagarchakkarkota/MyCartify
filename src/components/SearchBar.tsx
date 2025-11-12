@@ -17,11 +17,11 @@ interface Props {
 export default function SearchBar({ value, onChange }: Props) {
   return (
     <View style={styles.searchContainer}>
-      <Ionicons name="search-outline" size={22} color="#9ca3af" />
+      <Ionicons name="search-outline" size={22} color={colors.light.gray} />
       <TextInput
         style={styles.searchInput}
         placeholder="Search for products..."
-        placeholderTextColor="#9ca3af"
+        placeholderTextColor={colors.light.gray}
         value={value}
         onChangeText={onChange}
       />
