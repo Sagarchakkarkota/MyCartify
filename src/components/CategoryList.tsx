@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, Pressable, Text } from 'react-native';
 import { styles } from '../screens/HomeScreen/HomeScreen.styles';
 import { CATEGORIES } from '../screens/HomeScreen/homeScreen.constants';
+import { scaleHeight } from '../utils/scale';
 
 interface Props {
   data: any;
@@ -14,6 +15,7 @@ export default function CategoryList({ data, selected, onSelect }: Props) {
     <FlatList
       horizontal
       showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.categoryContentContainerStyle}
       data={data}
       keyExtractor={item => String(item.slug)}
       renderItem={({ item }) => {

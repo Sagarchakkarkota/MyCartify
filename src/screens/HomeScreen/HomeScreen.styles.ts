@@ -1,49 +1,49 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../theme/colors';
 import {
-  scaleWidth,
-  scaleHeight,
   moderateScale,
   scaleFont,
+  scaleHeight,
+  scaleWidth,
 } from '../../utils/scale';
 
 export const styles = StyleSheet.create({
+  safeAreaContainer: {
+    backgroundColor: colors.light.primary,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.light.background,
-    padding: moderateScale(16),
+    padding: 0,
   },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.light.background,
-    borderRadius: moderateScale(12),
-    paddingHorizontal: moderateScale(12),
-    marginBottom: scaleHeight(12),
-    elevation: 1,
-  },
-  searchInput: {
+  mainProductsContainer: {
     flex: 1,
-    marginLeft: scaleWidth(8),
-    color: colors.light.text,
-    paddingVertical: scaleHeight(8),
-    fontSize: scaleFont(14),
+    padding: moderateScale(10),
+  },
+  productsContentContainerStyle: {
+    gap: scaleHeight(16),
+    paddingBottom: scaleHeight(16),
+  },
+  categoryContentContainerStyle: {
+    paddingHorizontal: moderateScale(10),
+    marginBottom: scaleHeight(10),
   },
   categoryChip: {
     backgroundColor: colors.light.background,
     paddingHorizontal: scaleWidth(14),
-    paddingVertical: scaleHeight(8),
     borderRadius: moderateScale(20),
+    height: scaleHeight(24),
     marginRight: scaleWidth(10),
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.light.extraLightGray,
+    justifyContent: 'center',
   },
   categoryChipActive: {
     backgroundColor: colors.light.primary,
     borderColor: colors.light.primary,
   },
   categoryText: {
-    color: '#111827',
+    color: colors.light.text,
     fontSize: scaleFont(14),
   },
   categoryTextActive: {
@@ -53,24 +53,26 @@ export const styles = StyleSheet.create({
   cardContainer: {
     width: '48%',
     backgroundColor: colors.light.background,
-    borderRadius: moderateScale(16),
-    marginBottom: scaleHeight(16),
-    shadowColor: '#000',
+    borderRadius: moderateScale(20),
+    shadowColor: colors.light.primary,
     shadowOpacity: 0.05,
     shadowRadius: 4,
-    elevation: 2,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: 'transparent',
+
+    padding: scaleWidth(10),
   },
   cardImage: {
     width: '100%',
     height: scaleHeight(140),
-    borderTopLeftRadius: moderateScale(16),
-    borderTopRightRadius: moderateScale(16),
+    objectFit: 'contain',
   },
-  cardInfo: { padding: scaleWidth(10) },
+  cardInfo: {},
   cardTitle: { fontSize: scaleFont(14), fontWeight: '600', color: '#111827' },
   cardDesc: {
     fontSize: scaleFont(12),
-    color: '#6b7280',
+    color: colors.light.gray,
     marginVertical: scaleHeight(4),
   },
   cardPrice: {

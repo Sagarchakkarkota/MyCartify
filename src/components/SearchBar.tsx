@@ -1,7 +1,13 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@react-native-vector-icons/ionicons';
-import { styles } from '../screens/HomeScreen/HomeScreen.styles';
+import {
+  moderateScale,
+  scaleFont,
+  scaleHeight,
+  scaleWidth,
+} from '../utils/scale';
+import { colors } from '../theme/colors';
 
 interface Props {
   value: string;
@@ -22,3 +28,20 @@ export default function SearchBar({ value, onChange }: Props) {
     </View>
   );
 }
+const styles = StyleSheet.create({
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.light.background,
+    borderRadius: moderateScale(20),
+    paddingHorizontal: moderateScale(12),
+    elevation: 1,
+  },
+  searchInput: {
+    flex: 1,
+    marginLeft: scaleWidth(8),
+    color: colors.light.text,
+    paddingVertical: scaleHeight(8),
+    fontSize: scaleFont(14),
+  },
+});

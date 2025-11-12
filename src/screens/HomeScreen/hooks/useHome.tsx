@@ -4,7 +4,7 @@ import { globalGetRequest } from '../../../libs/axios/request';
 import { useState } from 'react';
 import useDebounce from '../../../hooks/useDebounce';
 
-const useHome = ({ id }: { id?: string | number }) => {
+const useHome = ({}) => {
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState('all');
   const { filterValue, setFIlterValue, debounceValue } = useDebounce({});
@@ -24,11 +24,6 @@ const useHome = ({ id }: { id?: string | number }) => {
     queryKey: ['categories'],
     queryFn: () => globalGetRequest({ url: '/products/categories' }),
   });
-  const getSingleProducts = useQuery({
-    queryKey: ['singleProducts'],
-    queryFn: () => globalGetRequest({ url: `/products/${id}` }),
-    enabled: !!id,
-  });
 
   return {
     states: {
@@ -39,7 +34,7 @@ const useHome = ({ id }: { id?: string | number }) => {
       category,
       setCategory,
     },
-    services: { getAllProducts, getSingleProducts, getAllCategories },
+    services: { getAllProducts, getAllCategories },
   };
 };
 export default useHome;

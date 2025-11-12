@@ -8,6 +8,7 @@ const commonColors = {
   lightGray: '#D3D3D3',
   gray: '#808080',
   darkGray: '#A9A9A9',
+  extraLightGray: '#e6e6e6ff',
 };
 export const colors = {
   light: {

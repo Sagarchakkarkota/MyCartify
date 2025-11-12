@@ -1,0 +1,50 @@
+import { StyleSheet } from 'react-native';
+import {
+  moderateScale,
+  scaleFont,
+  scaleHeight,
+  scaleWidth,
+} from '../../utils/scale';
+import { colors } from '../../theme/colors';
+
+export const styles = StyleSheet.create({
+  container: { flex: 1 },
+  loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  mainContainer: { padding: moderateScale(16), gap: 4 },
+  title: {
+    fontSize: scaleFont(22),
+    fontWeight: '700',
+    color: '#111827',
+    marginBottom: scaleHeight(6),
+  },
+  ratingContainer: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  rating: { fontSize: scaleFont(14), fontWeight: '600' },
+  price: {
+    fontSize: scaleFont(20),
+    fontWeight: '700',
+    color: colors.light.primary,
+    marginBottom: scaleHeight(10),
+  },
+  desc: {
+    color: colors.light.gray,
+    fontSize: scaleFont(15),
+    lineHeight: 22,
+  },
+  reviews: { fontSize: scaleFont(24), fontWeight: '600' },
+  addCartContainer: {
+    paddingHorizontal: scaleWidth(16),
+    paddingVertical: scaleHeight(20),
+    backgroundColor: colors.light.white,
+  },
+  cartButton: {
+    backgroundColor: colors.light.primary,
+    borderRadius: moderateScale(10),
+    paddingVertical: scaleHeight(14),
+    alignItems: 'center',
+  },
+  cartButtonText: {
+    color: colors.light.white,
+    fontSize: scaleFont(16),
+    fontWeight: '700',
+  },
+});
