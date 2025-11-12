@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@react-native-vector-icons/ionicons';
 import {
@@ -8,13 +8,17 @@ import {
   scaleWidth,
 } from '../utils/scale';
 import { colors } from '../theme/colors';
+import useDebounce from '../hooks/useDebounce';
 
 interface Props {
-  value: string;
-  onChange: (text: string) => void;
+  valueHandler: (debounceValue: string) => void;
 }
 
-export default function SearchBar({ value, onChange }: Props) {
+export default function SearchBar({ valueHandler }: Props) {
+  const { filterValue, setFIlterValue, debounceValue } = useDebounce({});
+  useEffect(() => {
+    valueHandler(debounceValue);
+  }, [debounceValue]);
   return (
     <View style={styles.searchContainer}>
       <Ionicons name="search-outline" size={22} color={colors.light.gray} />
@@ -22,8 +26,8 @@ export default function SearchBar({ value, onChange }: Props) {
         style={styles.searchInput}
         placeholder="Search for products..."
         placeholderTextColor={colors.light.gray}
-        value={value}
-        onChangeText={onChange}
+        value={filterValue}
+        onChangeText={setFIlterValue}
       />
     </View>
   );

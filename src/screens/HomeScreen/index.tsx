@@ -13,7 +13,7 @@ import { moderateScale } from '../../utils/scale';
 
 export default function HomeScreen({ navigation }: any) {
   const {
-    states: { filterValue, setFIlterValue, category, setCategory },
+    states: { setFIlterValue, category, setCategory },
     services: { getAllProducts, getAllCategories },
   } = useHome({});
 
@@ -23,7 +23,11 @@ export default function HomeScreen({ navigation }: any) {
       safeAreaStyle={styles.safeAreaContainer}
     >
       <View style={{ backgroundColor: colors.light.primary, padding: 10 }}>
-        <SearchBar value={filterValue} onChange={setFIlterValue} />
+        <SearchBar
+          valueHandler={value => {
+            setFIlterValue(value);
+          }}
+        />
       </View>
 
       {getAllProducts?.isLoading || getAllCategories?.isLoading ? (

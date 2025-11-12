@@ -7,13 +7,13 @@ import useDebounce from '../../../hooks/useDebounce';
 const useHome = ({}) => {
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState('all');
-  const { filterValue, setFIlterValue, debounceValue } = useDebounce({});
+  const [filterValue, setFIlterValue] = useState('');
   const getAllProducts = useQuery({
-    queryKey: ['products', debounceValue, category, page],
+    queryKey: ['products', filterValue, category, page],
     queryFn: () => {
       let url = '/products';
-      if (debounceValue) {
-        url = `/products/search?q=${debounceValue}`;
+      if (filterValue) {
+        url = `/products/search?q=${filterValue}`;
       } else if (category && category !== 'all') {
         url = `/products/category/${category}`;
       }

@@ -16,7 +16,7 @@ interface ProductCarouselProps {
 }
 const CustomCarousel: React.FC<ProductCarouselProps> = ({
   images,
-  height = 500,
+  height = 400,
   containerWidth = width,
   horizontalPadding = 0,
   resizeMode = 'contain',
@@ -29,7 +29,10 @@ const CustomCarousel: React.FC<ProductCarouselProps> = ({
     return (
       <Image
         source={isTypeNumber ? (uri as any) : { uri }}
-        style={[styles.image]}
+        style={[
+          styles.image,
+          { width: adjustedWidth, height: scaleHeight(height) },
+        ]}
         resizeMode={resizeMode}
       />
     );

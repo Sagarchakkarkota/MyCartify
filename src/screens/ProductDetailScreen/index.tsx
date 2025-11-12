@@ -8,7 +8,7 @@ import Rating from './components/Rating';
 import ReviewCard from './components/ReviewCard';
 import useProductDetail from './hooks/useProductDetail';
 import { styles } from './ProductDetail.styles';
-import { moderateScale } from '../../utils/scale';
+import { moderateScale, scaleWidth } from '../../utils/scale';
 
 export default function ProductDetailScreen({ route }: any) {
   const { id } = route.params;
@@ -30,14 +30,18 @@ export default function ProductDetailScreen({ route }: any) {
           <Text style={styles.desc}>{productData.description}</Text>
           <Rating productData={productData} />
           <AddToCartButton product={productData} />
-          <Text style={styles.title}>Rating & Reviews</Text>
-          <FlatList
-            data={productData.reviews}
-            horizontal
-            renderItem={({ item }) => <ReviewCard reviewData={item} />}
-            keyExtractor={(item, index) => String(index)}
-            contentContainerStyle={styles.reviewContainer}
-          />
+          {productData?.reviews?.length > 0 && (
+            <>
+              <Text style={styles.title}>Rating & Reviews</Text>
+              <FlatList
+                data={productData.reviews}
+                horizontal
+                renderItem={({ item }) => <ReviewCard reviewData={item} />}
+                keyExtractor={(item, index) => String(index)}
+                contentContainerStyle={styles.reviewContainer}
+              />
+            </>
+          )}
         </View>
       </ScrollView>
     </ScreenWrapper>
