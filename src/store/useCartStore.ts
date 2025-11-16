@@ -14,7 +14,7 @@ type CartState = {
   addToCart: (item: CartItem, qty?: number) => void;
   removeFromCart: (id: string | number) => void;
   clearCart: () => void;
-  updateQty: (id: string | number, qty: number) => void;
+  updateQty: (id: string | number, type: 'inc' | 'dec') => void;
   total: () => number;
 };
 export const useCartStore = create<CartState>()(
@@ -27,9 +27,12 @@ export const useCartStore = create<CartState>()(
 
           if (existingItem) {
             return {
-              items: state.items.map(i =>
-                i.id === item.id ? { ...i, qty: i.qty + qty } : i,
+              items: state?.items?.map(i =>
+                i?.id === existingItem?.id ? { ...i, qty: i.qty + qty } : i,
               ),
+              //   state.items.map(i =>
+              //   i.id === item.id ? { ...i, qty: i.qty + qty } : i,
+              // ),
             };
           }
 
@@ -38,9 +41,16 @@ export const useCartStore = create<CartState>()(
       removeFromCart: id =>
         set(({ items }) => ({ items: items.filter(i => i.id !== id) })),
       clearCart: () => set({ items: [] }),
-      updateQty: (id, qty) =>
+      updateQty: (id, type) =>
         set(({ items }) => ({
-          items: items.map(i => (i.id === id ? { ...i, qty } : i)),
+          items: items.map(i =>
+            i.id === id
+              ? {
+                  ...i,
+                  qty: type === 'inc' ? i.qty + 1 : Math.max(i.qty - 1, 1),
+                }
+              : i,
+          ),
         })),
       total: () =>
         get()?.items?.reduce((sum, item) => sum + item.price * item.qty, 0),

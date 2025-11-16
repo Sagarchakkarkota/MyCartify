@@ -6,77 +6,87 @@ import ScreenWrapper from '../../components/ScreenWrapper';
 import SearchBar from '../../components/SearchBar';
 import { colors } from '../../theme/colors';
 import { bannerImages } from './homeScreen.constants';
-import { styles } from './HomeScreen.styles';
+import { styles } from './homeScreen.styles';
 import useHome from './hooks/useHome';
 import CustomCarousel from '../../components/CustomCarousel';
 import { moderateScale } from '../../utils/scale';
+import FallBackImage from '../../components/FallBackImage';
 
 export default function HomeScreen({ navigation }: any) {
   const {
-    states: { setFIlterValue, category, setCategory },
+    states: {
+      allProducts,
+      skip,
+      setSkip,
+      setFIlterValue,
+      category,
+      setCategory,
+      limit,
+    },
     services: { getAllProducts, getAllCategories },
   } = useHome({});
-
+  const initialLoad = getAllProducts.isLoading && skip === 0;
+  const isFetchingMore = getAllProducts.isLoading && skip !== 0;
   return (
     <ScreenWrapper
       style={styles.container}
       safeAreaStyle={styles.safeAreaContainer}
     >
-      <View style={{ backgroundColor: colors.light.primary, padding: 10 }}>
+      <View style={styles.searchBarContainer}>
         <SearchBar
           valueHandler={value => {
+            setSkip(0);
             setFIlterValue(value);
           }}
         />
       </View>
 
-      {getAllProducts?.isLoading || getAllCategories?.isLoading ? (
+      {initialLoad || getAllCategories?.isLoading ? (
         <CustomLoader />
       ) : (
         <View style={styles.mainProductsContainer}>
           <FlatList
-            data={getAllProducts?.data?.products || []}
+            data={allProducts || []}
             keyExtractor={item => String(item.id)}
             numColumns={2}
             ListHeaderComponent={() => (
               <View>
-                <CategoryList
-                  data={[
-                    {
-                      slug: 'all',
-                      name: 'All',
-                    },
-                    ...getAllCategories?.data,
-                  ]}
-                  selected={category}
-                  onSelect={setCategory}
-                />
+                <View style={styles.categoryListContainer}>
+                  <CategoryList
+                    data={[
+                      {
+                        slug: 'all',
+                        name: 'All',
+                      },
+                      ...getAllCategories?.data,
+                    ]}
+                    selected={category}
+                    onSelect={cat => {
+                      setSkip(0);
+                      setCategory(cat);
+                    }}
+                  />
+                </View>
+
                 <CustomCarousel
                   images={bannerImages}
                   height={200}
-                  horizontalPadding={moderateScale(10)}
                   resizeMode={'cover'}
                 />
               </View>
             )}
             ListEmptyComponent={() => (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Image
-                  height={200}
-                  width={200}
-                  source={require('./../../assets/images/empty-box.png')}
-                />
-              </View>
+              <FallBackImage
+                url={require('./../../assets/images/empty-box.png')}
+              />
             )}
-            columnWrapperStyle={{
-              justifyContent: 'space-between',
+            onEndReachedThreshold={0.5}
+            onEndReached={() => {
+              if (!isFetchingMore) {
+                setSkip(prev => prev + limit);
+              }
             }}
+            columnWrapperStyle={styles.columnWrapperStyle}
             contentContainerStyle={styles.productsContentContainerStyle}
             renderItem={({ item }) => (
               <ProductCard
@@ -88,12 +98,19 @@ export default function HomeScreen({ navigation }: any) {
             )}
             refreshControl={
               <RefreshControl
-                refreshing={getAllProducts?.isLoading}
+                refreshing={initialLoad}
                 onRefresh={() => {
+                  setSkip(0);
                   getAllProducts?.refetch();
                 }}
               />
             }
+            ListFooterComponent={() => {
+              if (!isFetchingMore && skip === 0) {
+                return null;
+              }
+              return <CustomLoader />;
+            }}
           />
         </View>
       )}

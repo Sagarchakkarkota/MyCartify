@@ -1,22 +1,68 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet } from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 import { colors } from '../theme/colors';
-import { moderateScale } from '../utils/scale';
+import { scaleFont, scaleWidth } from '../utils/scale';
 
-export default function CustomButton({ title, onPress, style }: any) {
-  return (
-    <Pressable style={[styles.btn, style]} onPress={onPress}>
-      <Text style={styles.text}>{title}</Text>
-    </Pressable>
-  );
+interface CustomButtonProps {
+  title: string;
+  onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  disabled?: boolean;
+  type?: 'pressable' | 'touchableOpacity';
+  loading?: boolean;
 }
+const CustomButton = ({
+  style,
+  title,
+  onPress,
+  textStyle,
+  disabled = false,
+  type = 'pressable',
+  loading = false,
+}: CustomButtonProps) => {
+  const ButtonComponent =
+    type === 'touchableOpacity' ? TouchableOpacity : Pressable;
+  return (
+    <ButtonComponent
+      style={[styles.button, style, disabled && styles.disabled]}
+      onPress={onPress}
+      disabled={disabled}
+      {...(type === 'touchableOpacity' ? { activeOpacity: 0.7 } : {})}
+    >
+      {loading ? (
+        <ActivityIndicator size="small" color={colors.light.background} />
+      ) : (
+        <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+      )}
+    </ButtonComponent>
+  );
+};
 
-const styles = StyleSheet.create({
-  btn: {
-    padding: moderateScale(12),
+export default CustomButton;
+
+export const styles = StyleSheet.create({
+  button: {
     backgroundColor: colors.light.primary,
-    borderRadius: moderateScale(20),
+    paddingVertical: scaleWidth(8),
+    paddingHorizontal: scaleWidth(12),
+    justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: scaleWidth(8),
   },
-  text: { color: colors.light.white, fontWeight: '600' },
+  buttonText: {
+    color: colors.light.background,
+    fontWeight: '600',
+    fontSize: scaleFont(16),
+  },
+  disabled: { opacity: 0.5 },
 });

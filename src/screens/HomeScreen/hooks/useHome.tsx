@@ -1,38 +1,57 @@
 // src/screens/HomeScreen/hooks/useProducts.ts
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { globalGetRequest } from '../../../libs/axios/request';
-import { useState } from 'react';
-import useDebounce from '../../../hooks/useDebounce';
 
 const useHome = ({}) => {
-  const [page, setPage] = useState(1);
+  const [skip, setSkip] = useState(0);
   const [category, setCategory] = useState('all');
   const [filterValue, setFIlterValue] = useState('');
+  const [allProducts, setAllProducts] = useState<any[]>([]);
+  const limit = 10;
   const getAllProducts = useQuery({
-    queryKey: ['products', filterValue, category, page],
+    queryKey: ['products', filterValue, category, skip],
     queryFn: () => {
-      let url = '/products';
+      let url = `/products?limit=${limit}&skip=${skip}`;
       if (filterValue) {
-        url = `/products/search?q=${filterValue}`;
+        url = `/products/search?limit=${limit}&skip=${skip}&q=${filterValue}`;
       } else if (category && category !== 'all') {
-        url = `/products/category/${category}`;
+        url = `/products/category/${category}?limit=${limit}&skip=${skip}`;
       }
       return globalGetRequest({ url });
     },
+    placeholderData: keepPreviousData,
   });
+
   const getAllCategories = useQuery({
     queryKey: ['categories'],
     queryFn: () => globalGetRequest({ url: '/products/categories' }),
   });
 
+  // useEffect
+  useEffect(() => {
+    if (skip === 0) {
+      setAllProducts(getAllProducts?.data?.products);
+    } else {
+      setAllProducts(prev => {
+        const mergedArray = [...prev, ...getAllProducts?.data?.products];
+        const mappedData = Array.from(
+          new Map(mergedArray?.map(p => [p.id, p]))?.values(),
+        );
+        return mappedData;
+      });
+    }
+  }, [getAllProducts?.data]);
   return {
     states: {
-      page,
-      setPage,
+      allProducts,
+      skip,
+      setSkip,
       filterValue,
       setFIlterValue,
       category,
       setCategory,
+      limit,
     },
     services: { getAllProducts, getAllCategories },
   };

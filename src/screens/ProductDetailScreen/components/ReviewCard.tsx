@@ -5,7 +5,7 @@ import { moderateScale, scaleFont } from '../../../utils/scale';
 import { colors } from '../../../theme/colors';
 import { hexToRgba } from '../../../utils/hexToRgba.utility';
 import { format } from 'date-fns';
-import { styles } from '../ProductDetail.styles';
+import { styles } from '../productDetail.styles';
 const ReviewCard = ({ reviewData }: { reviewData: any }) => {
   return (
     <View style={styles.reviewCardContainer}>

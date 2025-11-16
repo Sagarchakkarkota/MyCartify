@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Dimensions, Image, View, StyleSheet } from 'react-native';
-import Carousel, { Pagination } from 'react-native-reanimated-carousel';
+import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
-import { colors } from '../theme/colors';
-import { moderateScale, scaleHeight, scaleWidth } from '../utils/scale';
+import Carousel from 'react-native-reanimated-carousel';
+import { scaleHeight } from '../utils/scale';
+import CustomDots from './CustomDots';
 
 const { width } = Dimensions.get('window');
 
@@ -57,13 +57,7 @@ const CustomCarousel: React.FC<ProductCarouselProps> = ({
         )}
       />
 
-      <Pagination.Basic
-        progress={progressValue}
-        data={images}
-        dotStyle={styles.dot}
-        activeDotStyle={styles.activeDot}
-        containerStyle={styles.paginationContainer}
-      />
+      <CustomDots progress={progressValue} count={images.length} />
     </View>
   );
 };
@@ -74,21 +68,5 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-  },
-  paginationContainer: {
-    position: 'absolute',
-    bottom: scaleWidth(10),
-    alignSelf: 'center',
-    flexDirection: 'row',
-  },
-  dot: {
-    width: scaleWidth(8),
-    height: scaleHeight(8),
-    borderRadius: moderateScale(20),
-    marginHorizontal: scaleWidth(4),
-    backgroundColor: colors.light.gray,
-  },
-  activeDot: {
-    backgroundColor: colors.light.primary,
   },
 });

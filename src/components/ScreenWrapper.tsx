@@ -1,10 +1,9 @@
 import React from 'react';
-import { StatusBar, View, StyleSheet } from 'react-native';
-import { useTheme } from '../hooks/useTheme';
+import { StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme } from '../hooks/useTheme';
 import { colors } from '../theme/colors';
-import { hexToRgba } from '../utils/hexToRgba.utility';
-import { moderateScale, scaleHeight } from '../utils/scale';
+import { moderateScale } from '../utils/scale';
 
 interface ScreenWrapperProps {
   children: React.ReactNode;
@@ -17,7 +16,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   style,
   safeAreaStyle = '',
 }) => {
-  const { theme, isDark } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <SafeAreaView edges={['top']} style={[styles.safeArea, safeAreaStyle]}>

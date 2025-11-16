@@ -10,14 +10,18 @@ import { hexToRgba } from '../../utils/hexToRgba.utility';
 
 export const styles = StyleSheet.create({
   container: { flex: 1 },
-  mainContainer: { padding: moderateScale(16), gap: 4 },
+  mainContainer: { padding: moderateScale(16), gap: moderateScale(4) },
   title: {
     fontSize: scaleFont(22),
     fontWeight: '700',
-    color: '#111827',
+    color: colors.light.text,
     marginBottom: scaleHeight(6),
   },
-  ratingContainer: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: moderateScale(4),
+  },
   rating: { fontSize: scaleFont(14), fontWeight: '600' },
   price: {
     fontSize: scaleFont(20),
@@ -31,14 +35,21 @@ export const styles = StyleSheet.create({
     lineHeight: 22,
   },
   reviews: { fontSize: scaleFont(24), fontWeight: '600' },
-  reviewContainer: { gap: 8 },
+  reviewContainer: { gap: moderateScale(8) },
   reviewCardContainer: {
     width: moderateScale(300),
     alignSelf: 'center',
     padding: moderateScale(16),
     borderRadius: moderateScale(20),
     backgroundColor: hexToRgba(colors.light.extraLightGray, 0.4),
-    gap: 16,
+    gap: moderateScale(16),
+  },
+  picker: {
+    height: scaleHeight(50),
+    borderColor: colors.light.extraLightGray,
+    borderWidth: 1,
+    borderRadius: moderateScale(8),
+    paddingHorizontal: scaleWidth(10),
   },
   reviewCardTitleContainer: { flexDirection: 'row', gap: 12 },
   reviewCardTitle: { fontSize: scaleFont(14), fontWeight: 600 },
@@ -48,6 +59,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: scaleWidth(16),
     paddingVertical: scaleHeight(20),
     backgroundColor: colors.light.white,
+    gap: moderateScale(4),
   },
   cartButton: {
     backgroundColor: colors.light.primary,

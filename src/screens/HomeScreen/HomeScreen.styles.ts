@@ -11,22 +11,27 @@ export const styles = StyleSheet.create({
   safeAreaContainer: {
     backgroundColor: colors.light.primary,
   },
+  searchBarContainer: { backgroundColor: colors.light.primary, padding: 10 },
   container: {
     flex: 1,
     backgroundColor: colors.light.background,
     padding: 0,
   },
+  categoryListContainer: { paddingHorizontal: 10 },
   mainProductsContainer: {
     flex: 1,
-    padding: moderateScale(10),
   },
   productsContentContainerStyle: {
-    gap: scaleHeight(16),
+    gap: moderateScale(16),
     paddingBottom: scaleHeight(16),
   },
   categoryContentContainerStyle: {
-    paddingHorizontal: moderateScale(10),
-    marginBottom: scaleHeight(10),
+    paddingVertical: moderateScale(10),
+  },
+
+  columnWrapperStyle: {
+    justifyContent: 'space-between',
+    padding: 10,
   },
   categoryChip: {
     backgroundColor: colors.light.background,
