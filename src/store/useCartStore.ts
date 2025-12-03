@@ -52,8 +52,10 @@ export const useCartStore = create<CartState>()(
               : i,
           ),
         })),
-      total: () =>
-        get()?.items?.reduce((sum, item) => sum + item.price * item.qty, 0),
+      total: () => {
+        const items = get()?.items ?? [];
+        return items?.reduce((sum, item) => sum + item.price * item.qty, 0);
+      },
     }),
     {
       name: 'mycartify-cart', // storage key

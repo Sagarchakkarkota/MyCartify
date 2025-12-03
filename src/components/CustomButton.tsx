@@ -53,7 +53,7 @@ export default CustomButton;
 export const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.light.primary,
-    paddingVertical: scaleWidth(8),
+    paddingVertical: scaleWidth(12),
     paddingHorizontal: scaleWidth(12),
     justifyContent: 'center',
     alignItems: 'center',

@@ -8,7 +8,6 @@ import Rating from './components/Rating';
 import ReviewCard from './components/ReviewCard';
 import useProductDetail from './hooks/useProductDetail';
 import { styles } from './productDetail.styles';
-import { moderateScale, scaleWidth } from '../../utils/scale';
 
 export default function ProductDetailScreen({ route }: any) {
   const { id } = route.params;

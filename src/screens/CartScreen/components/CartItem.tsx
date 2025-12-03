@@ -18,20 +18,20 @@ export default function CartItem({
       >
         <Ionicons name="trash-sharp" size={16} color={colors.light.error} />
       </Pressable>
-      <Image source={{ uri: item.thumbnail }} style={styles.itemImage} />
+      <Image source={{ uri: item?.thumbnail }} style={styles.itemImage} />
       <View style={styles.itemTitleContainer}>
-        <Text style={styles.itemTitle}>{item.title}</Text>
-        <Text style={styles.itemPrice}>₹{item.price}</Text>
+        <Text style={styles.itemTitle}>{item?.title}</Text>
+        <Text style={styles.itemPrice}>₹{item?.price}</Text>
         <View style={styles.quantityContainer}>
-          <TouchableOpacity onPress={() => updateQuantity(item.id, 'dec')}>
+          <TouchableOpacity onPress={() => updateQuantity(item?.id, 'dec')}>
             <Ionicons
               name="remove-circle-sharp"
               size={24}
               color={colors.light.primary}
             />
           </TouchableOpacity>
-          <Text style={styles.qtyText}>{item.qty}</Text>
-          <TouchableOpacity onPress={() => updateQuantity(item.id, 'inc')}>
+          <Text style={styles.qtyText}>{item?.qty}</Text>
+          <TouchableOpacity onPress={() => updateQuantity(item?.id, 'inc')}>
             <Ionicons
               name="add-circle"
               size={24}

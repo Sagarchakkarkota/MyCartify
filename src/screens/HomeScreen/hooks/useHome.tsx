@@ -1,6 +1,6 @@
 // src/screens/HomeScreen/hooks/useProducts.ts
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { globalGetRequest } from '../../../libs/axios/request';
 
 const useHome = ({}) => {
@@ -9,6 +9,7 @@ const useHome = ({}) => {
   const [filterValue, setFIlterValue] = useState('');
   const [allProducts, setAllProducts] = useState<any[]>([]);
   const limit = 10;
+  const paginationLock = useRef(false);
   const getAllProducts = useQuery({
     queryKey: ['products', filterValue, category, skip],
     queryFn: () => {
@@ -20,7 +21,7 @@ const useHome = ({}) => {
       }
       return globalGetRequest({ url });
     },
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
   });
 
   const getAllCategories = useQuery({
@@ -30,6 +31,8 @@ const useHome = ({}) => {
 
   // useEffect
   useEffect(() => {
+    if (!getAllProducts?.data?.products) return;
+    paginationLock.current = false;
     if (skip === 0) {
       setAllProducts(getAllProducts?.data?.products);
     } else {
@@ -52,6 +55,7 @@ const useHome = ({}) => {
       category,
       setCategory,
       limit,
+      paginationLock,
     },
     services: { getAllProducts, getAllCategories },
   };

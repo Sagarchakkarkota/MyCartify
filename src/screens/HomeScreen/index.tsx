@@ -11,6 +11,7 @@ import useHome from './hooks/useHome';
 import CustomCarousel from '../../components/CustomCarousel';
 import { moderateScale } from '../../utils/scale';
 import FallBackImage from '../../components/FallBackImage';
+import { useEffect } from 'react';
 
 export default function HomeScreen({ navigation }: any) {
   const {
@@ -22,11 +23,12 @@ export default function HomeScreen({ navigation }: any) {
       category,
       setCategory,
       limit,
+      paginationLock,
     },
     services: { getAllProducts, getAllCategories },
   } = useHome({});
   const initialLoad = getAllProducts.isLoading && skip === 0;
-  const isFetchingMore = getAllProducts.isLoading && skip !== 0;
+  const total = getAllProducts?.data?.total || 0;
   return (
     <ScreenWrapper
       style={styles.container}
@@ -80,11 +82,12 @@ export default function HomeScreen({ navigation }: any) {
                 url={require('./../../assets/images/empty-box.png')}
               />
             )}
-            onEndReachedThreshold={0.5}
+            onEndReachedThreshold={0.2}
             onEndReached={() => {
-              if (!isFetchingMore) {
-                setSkip(prev => prev + limit);
-              }
+              if (paginationLock.current) return;
+              if (skip + limit >= total) return;
+              paginationLock.current = true;
+              setSkip(prev => prev + limit);
             }}
             columnWrapperStyle={styles.columnWrapperStyle}
             contentContainerStyle={styles.productsContentContainerStyle}
@@ -105,12 +108,11 @@ export default function HomeScreen({ navigation }: any) {
                 }}
               />
             }
-            ListFooterComponent={() => {
-              if (!isFetchingMore && skip === 0) {
-                return null;
-              }
-              return <CustomLoader />;
-            }}
+            ListFooterComponent={() =>
+              paginationLock.current && skip + limit < total ? (
+                <CustomLoader />
+              ) : null
+            }
           />
         </View>
       )}

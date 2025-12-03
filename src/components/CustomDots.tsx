@@ -29,7 +29,7 @@ const CustomDots = ({
           };
         });
 
-        return <View key={i} style={[styles.dot, animatedStyle]} />;
+        return <Animated.View key={i} style={[styles.dot, animatedStyle]} />;
       })}
     </View>
   );

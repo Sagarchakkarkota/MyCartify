@@ -12,7 +12,7 @@ export const globalPostRequest = async ({
   url: string;
   data: any;
 }) => {
-  const res = await API.post(url, data);
+  const res = await API.post(url, { ...data, expiresInMins: 30 });
   return res.data;
 };
 export const globalPutRequest = async ({
