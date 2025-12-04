@@ -7,7 +7,8 @@ import { quantities } from '../productDetail.constants';
 import { Dropdown } from 'react-native-element-dropdown';
 export default function AddToCartButton({ product }: { product: any }) {
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCartStore();
+  const addToCart = useCartStore(state => state.addToCart);
+
   const addToCartHandler = () => {
     addToCart(product, quantity);
     Toast.show({

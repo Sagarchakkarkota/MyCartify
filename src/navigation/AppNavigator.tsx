@@ -5,6 +5,8 @@ import ProfileScreen from '../screens/ProfileScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
 import { useAuthStore } from '../store/authStore';
+import AddressScreen from '../screens/AddressScreen';
+import PaymentScreen from '../screens/PaymentScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +19,8 @@ const AppNavigator = () => {
       {isAuthenticated && (
         <Stack.Screen name="Orders" component={OrdersScreen} />
       )}
+      <Stack.Screen name="Address" component={AddressScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );

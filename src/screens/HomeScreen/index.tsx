@@ -35,6 +35,10 @@ export default function HomeScreen({ navigation }: any) {
       safeAreaStyle={styles.safeAreaContainer}
     >
       <View style={styles.searchBarContainer}>
+        <Image
+          source={require('../../assets/images/myCartLogoFilled.png')}
+          style={[styles.image]}
+        />
         <SearchBar
           valueHandler={value => {
             setSkip(0);

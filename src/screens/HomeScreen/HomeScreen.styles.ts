@@ -11,11 +11,27 @@ export const styles = StyleSheet.create({
   safeAreaContainer: {
     backgroundColor: colors.light.primary,
   },
-  searchBarContainer: { backgroundColor: colors.light.primary, padding: 10 },
+  searchBarContainer: {
+    backgroundColor: colors.light.primary,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: moderateScale(10),
+  },
   container: {
     flex: 1,
     backgroundColor: colors.light.background,
     padding: 0,
+  },
+  image: {
+    resizeMode: 'contain',
+    width: scaleWidth(60),
+    height: scaleHeight(40),
+  },
+  imageContainer: {
+    padding: 4,
+    backgroundColor: colors.light.white,
+    borderRadius: moderateScale(8),
   },
   categoryListContainer: { paddingHorizontal: 10 },
   mainProductsContainer: {

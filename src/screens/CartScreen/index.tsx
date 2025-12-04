@@ -10,7 +10,12 @@ import CartItem from './components/CartItem';
 import CartSummary from './components/CartSummary';
 
 const CartScreen = () => {
-  const { items, updateQty, total, clearCart, removeFromCart } = useCartStore();
+  const items = useCartStore(state => state.items);
+  const updateQty = useCartStore(state => state.updateQty);
+  const total = useCartStore(state => state.total);
+  const clearCart = useCartStore(state => state.clearCart);
+  const removeFromCart = useCartStore(state => state.removeFromCart);
+
   return (
     <ScreenWrapper style={{ padding: 0 }}>
       <View style={styles.container}>

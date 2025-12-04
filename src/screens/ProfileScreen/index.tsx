@@ -7,7 +7,9 @@ import { hexToRgba } from '../../utils/hexToRgba.utility';
 import { useAuthStore } from '../../store/authStore';
 
 const ProfileScreen = ({ navigation }: any) => {
-  const { logout, user } = useAuthStore();
+  const logout = useAuthStore(state => state.logout);
+  const user = useAuthStore(state => state.user);
+
   if (!user) {
     return (
       <ScreenWrapper style={{ alignItems: 'center', justifyContent: 'center' }}>

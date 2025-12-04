@@ -1,10 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { styles } from '../cartScreen.styles';
+import { Text, View } from 'react-native';
 import CustomButton from '../../../components/CustomButton';
-import { moderateScale } from '../../../utils/scale';
+import { styles } from '../cartScreen.styles';
 
 export default function CartSummary({ total }: { total: () => number }) {
+  const navigation = useNavigation<any>();
   return (
     <View style={styles.summaryContainer}>
       <View style={styles.totalContainer}>
@@ -16,7 +17,12 @@ export default function CartSummary({ total }: { total: () => number }) {
           })}
         </Text>
       </View>
-      <CustomButton title={'Checkout'} onPress={() => {}} />
+      <CustomButton
+        title={'Proceed to Checkout'}
+        onPress={() => {
+          navigation.navigate('Address');
+        }}
+      />
     </View>
   );
 }

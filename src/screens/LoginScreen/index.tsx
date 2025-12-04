@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
 import ScreenWrapper from '../../components/ScreenWrapper';
@@ -17,6 +17,10 @@ export default function LoginScreen() {
 
   return (
     <ScreenWrapper style={styles.maincontainer}>
+      <Image
+        source={require('../../assets/images/myCartLogoFilled.png')}
+        style={[styles.image]}
+      />
       <View style={styles.container}>
         <Text style={styles.title}>Login</Text>
         <FormProvider {...methods}>

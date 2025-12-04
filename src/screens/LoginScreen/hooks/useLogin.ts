@@ -7,7 +7,9 @@ import { useAuthStore } from '../../../store/authStore';
 import { useNavigation } from '@react-navigation/native';
 
 const useLogin = () => {
-  const { setTokens, setUser } = useAuthStore();
+  const setUser = useAuthStore(state => state.setUser);
+  const setTokens = useAuthStore(state => state.setTokens);
+
   const navigation = useNavigation<any>();
   const loginMutation = useMutation({
     mutationFn: data => globalPostRequest({ url: '/auth/login', data }),

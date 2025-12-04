@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@react-native-vector-icons/ionicons';
-import {
-  moderateScale,
-  scaleFont,
-  scaleHeight,
-  scaleWidth,
-} from '../utils/scale';
-import { colors } from '../theme/colors';
+import React, { useEffect } from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
 import useDebounce from '../hooks/useDebounce';
+import { colors } from '../theme/colors';
+import { moderateScale } from '../utils/scale';
 
 interface Props {
   valueHandler: (debounceValue: string) => void;
@@ -40,12 +35,10 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(20),
     paddingHorizontal: moderateScale(12),
     elevation: 1,
+    flex: 1,
+    overflow: 'hidden',
   },
   searchInput: {
     flex: 1,
-    marginLeft: scaleWidth(8),
-    color: colors.light.text,
-    paddingVertical: scaleHeight(8),
-    fontSize: scaleFont(14),
   },
 });
