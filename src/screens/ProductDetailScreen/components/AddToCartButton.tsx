@@ -5,10 +5,12 @@ import { useCartStore } from '../../../store/useCartStore';
 import { styles } from '../productDetail.styles';
 import { quantities } from '../productDetail.constants';
 import { Dropdown } from 'react-native-element-dropdown';
+import { colors } from '../../../theme/colors';
+import { useNavigation } from '@react-navigation/native';
 export default function AddToCartButton({ product }: { product: any }) {
   const [quantity, setQuantity] = useState(1);
   const addToCart = useCartStore(state => state.addToCart);
-
+  const { navigate } = useNavigation<any>();
   const addToCartHandler = () => {
     addToCart(product, quantity);
     Toast.show({
@@ -17,7 +19,10 @@ export default function AddToCartButton({ product }: { product: any }) {
       position: 'bottom',
     });
   };
-
+  const buyNowHandler = () => {
+    addToCart(product, quantity);
+    navigate('Tabs', { screen: 'Cart' });
+  };
   return (
     <View style={styles.addCartContainer}>
       <Dropdown
@@ -29,7 +34,13 @@ export default function AddToCartButton({ product }: { product: any }) {
         value={quantity}
         onChange={(item: any) => setQuantity(item?.value)}
       />
-      <TouchableOpacity style={styles.cartButton} onPress={addToCartHandler}>
+      <TouchableOpacity style={styles.cartButton} onPress={buyNowHandler}>
+        <Text style={styles.cartButtonText}>Buy Now</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.cartButton, { backgroundColor: colors.light.secondary }]}
+        onPress={addToCartHandler}
+      >
         <Text style={styles.cartButtonText}>Add to Cart</Text>
       </TouchableOpacity>
     </View>

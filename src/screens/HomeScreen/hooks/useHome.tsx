@@ -6,7 +6,7 @@ import { globalGetRequest } from '../../../libs/axios/request';
 const useHome = ({}) => {
   const [skip, setSkip] = useState(0);
   const [category, setCategory] = useState('all');
-  const [filterValue, setFIlterValue] = useState('');
+  const [filterValue, setFilterValue] = useState('');
   const [allProducts, setAllProducts] = useState<any[]>([]);
   const limit = 10;
   const paginationLock = useRef(false);
@@ -28,16 +28,19 @@ const useHome = ({}) => {
     queryKey: ['categories'],
     queryFn: () => globalGetRequest({ url: '/products/categories' }),
   });
-
+  const transFormData = (data: any[]) => {
+    return data?.map((p: any) => ({ ...p, price: Math.round(p?.price * 60) }));
+  };
   // useEffect
   useEffect(() => {
     if (!getAllProducts?.data?.products) return;
     paginationLock.current = false;
+    const transformedProducts = transFormData(getAllProducts?.data?.products);
     if (skip === 0) {
-      setAllProducts(getAllProducts?.data?.products);
+      setAllProducts(transformedProducts);
     } else {
       setAllProducts(prev => {
-        const mergedArray = [...prev, ...getAllProducts?.data?.products];
+        const mergedArray = [...prev, ...transformedProducts];
         const mappedData = Array.from(
           new Map(mergedArray?.map(p => [p.id, p]))?.values(),
         );
@@ -51,7 +54,7 @@ const useHome = ({}) => {
       skip,
       setSkip,
       filterValue,
-      setFIlterValue,
+      setFilterValue,
       category,
       setCategory,
       limit,

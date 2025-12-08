@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -16,19 +16,13 @@ function App() {
   });
   return (
     <ThemeProvider>
-      <PersistQueryClientProvider
-        client={queryClient}
-        persistOptions={{ persister: asyncStoragePersister }}
-        onSuccess={() => {
-          console.log('react query cache');
-        }}
-      >
+      <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
           <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
           <RootNavigator />
           <Toast />
         </SafeAreaProvider>
-      </PersistQueryClientProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

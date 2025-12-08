@@ -1,6 +1,7 @@
 const commonColors = {
   primary: '#007BFF',
-  secondary: '#6C757D',
+  secondary: '#FFBB00',
+  tertiary: '#FF0015',
   error: '#E63946',
   success: '#28A745',
   white: '#FFFFFF',

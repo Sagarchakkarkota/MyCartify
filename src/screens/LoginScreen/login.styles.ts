@@ -8,13 +8,19 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: moderateScale(10),
   },
+  centerContainer: {
+    backgroundColor: colors.light.primary,
+    width: '100%',
+    alignItems: 'center',
+    padding: moderateScale(12),
+    borderRadius: moderateScale(8),
+  },
   container: {
     gap: moderateScale(10),
     padding: moderateScale(12),
-    borderWidth: 1,
-    borderColor: colors.light.lightGray,
     borderRadius: moderateScale(8),
     width: '100%',
+    backgroundColor: colors.light.white,
   },
   title: { fontSize: 28, fontWeight: 'bold' },
   input: {

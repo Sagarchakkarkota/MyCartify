@@ -22,7 +22,7 @@ const useLogin = () => {
     onError: error => {
       console.log(error);
       Toast.show({
-        type: 'success',
+        type: 'error',
         text1: `Login failed`,
         position: 'bottom',
       });

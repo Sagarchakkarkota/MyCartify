@@ -14,13 +14,20 @@ interface ScreenWrapperProps {
 const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   children,
   style,
-  safeAreaStyle = '',
+  safeAreaStyle,
 }) => {
   const { theme } = useTheme();
 
   return (
-    <SafeAreaView edges={['top']} style={[styles.safeArea, safeAreaStyle]}>
-      <StatusBar barStyle={'dark-content'} backgroundColor={theme.primary} />
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={[styles.safeArea, safeAreaStyle]}
+    >
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={'dark-content'}
+      />
       <View style={[styles.container, style]}>{children}</View>
     </SafeAreaView>
   );

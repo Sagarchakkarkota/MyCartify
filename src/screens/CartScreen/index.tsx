@@ -42,7 +42,7 @@ const CartScreen = () => {
           )}
           contentContainerStyle={styles.contentContainerStyle}
         />
-        <CartSummary total={total} />
+        <CartSummary total={total} items={items} />
       </View>
     </ScreenWrapper>
   );

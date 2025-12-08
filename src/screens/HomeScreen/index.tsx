@@ -1,17 +1,14 @@
 import { FlatList, Image, RefreshControl, View } from 'react-native';
 import CategoryList from '../../components/CategoryList';
+import CustomCarousel from '../../components/CustomCarousel';
 import CustomLoader from '../../components/CustomLoader';
+import FallBackImage from '../../components/FallBackImage';
 import ProductCard from '../../components/ProductCard';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import SearchBar from '../../components/SearchBar';
-import { colors } from '../../theme/colors';
 import { bannerImages } from './homeScreen.constants';
 import { styles } from './homeScreen.styles';
 import useHome from './hooks/useHome';
-import CustomCarousel from '../../components/CustomCarousel';
-import { moderateScale } from '../../utils/scale';
-import FallBackImage from '../../components/FallBackImage';
-import { useEffect } from 'react';
 
 export default function HomeScreen({ navigation }: any) {
   const {
@@ -19,7 +16,7 @@ export default function HomeScreen({ navigation }: any) {
       allProducts,
       skip,
       setSkip,
-      setFIlterValue,
+      setFilterValue,
       category,
       setCategory,
       limit,
@@ -29,6 +26,15 @@ export default function HomeScreen({ navigation }: any) {
   } = useHome({});
   const initialLoad = getAllProducts.isLoading && skip === 0;
   const total = getAllProducts?.data?.total || 0;
+  const categoryData = getAllCategories?.data?.length
+    ? [
+        {
+          slug: 'all',
+          name: 'All',
+        },
+        ...getAllCategories?.data,
+      ]
+    : [];
   return (
     <ScreenWrapper
       style={styles.container}
@@ -42,7 +48,7 @@ export default function HomeScreen({ navigation }: any) {
         <SearchBar
           valueHandler={value => {
             setSkip(0);
-            setFIlterValue(value);
+            setFilterValue(value);
           }}
         />
       </View>
@@ -55,32 +61,28 @@ export default function HomeScreen({ navigation }: any) {
             data={allProducts || []}
             keyExtractor={item => String(item.id)}
             numColumns={2}
-            ListHeaderComponent={() => (
-              <View>
-                <View style={styles.categoryListContainer}>
-                  <CategoryList
-                    data={[
-                      {
-                        slug: 'all',
-                        name: 'All',
-                      },
-                      ...getAllCategories?.data,
-                    ]}
-                    selected={category}
-                    onSelect={cat => {
-                      setSkip(0);
-                      setCategory(cat);
-                    }}
+            ListHeaderComponent={() =>
+              allProducts?.length ? (
+                <View>
+                  <View style={styles.categoryListContainer}>
+                    <CategoryList
+                      data={categoryData}
+                      selected={category}
+                      onSelect={cat => {
+                        setSkip(0);
+                        setCategory(cat);
+                      }}
+                    />
+                  </View>
+
+                  <CustomCarousel
+                    images={bannerImages}
+                    height={200}
+                    resizeMode={'cover'}
                   />
                 </View>
-
-                <CustomCarousel
-                  images={bannerImages}
-                  height={200}
-                  resizeMode={'cover'}
-                />
-              </View>
-            )}
+              ) : null
+            }
             ListEmptyComponent={() => (
               <FallBackImage
                 url={require('./../../assets/images/empty-box.png')}
@@ -94,7 +96,7 @@ export default function HomeScreen({ navigation }: any) {
               setSkip(prev => prev + limit);
             }}
             columnWrapperStyle={styles.columnWrapperStyle}
-            contentContainerStyle={styles.productsContentContainerStyle}
+            // contentContainerStyle={styles.productsContentContainerStyle}
             renderItem={({ item }) => (
               <ProductCard
                 item={item}

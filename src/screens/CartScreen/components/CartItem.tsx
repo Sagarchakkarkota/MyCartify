@@ -1,9 +1,8 @@
-import React from 'react';
-import { View, Image, Text, TouchableOpacity, Pressable } from 'react-native';
-import { styles } from '../cartScreen.styles';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import React from 'react';
+import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../../theme/colors';
-import { moderateScale } from '../../../utils/scale';
+import { styles } from '../cartScreen.styles';
 
 export default function CartItem({
   item,

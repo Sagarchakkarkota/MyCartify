@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import ScreenWrapper from '../../components/ScreenWrapper';
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import CustomButton from '../../components/CustomButton';
+import ScreenWrapper from '../../components/ScreenWrapper';
+import usePayment from './hooks/usePayment';
 import { styles } from './paymentScreen.styles';
-import { useCheckoutStore } from '../../store/useCheckoutStore';
-import { useCartStore } from '../../store/useCartStore';
 
 const PaymentScreen = ({ navigation }: any) => {
-  const address = useCheckoutStore(state => state.address);
-  const cartItems = useCartStore(state => state.items || []);
-  const [selectedMethod, setSelectedMethod] = useState<'COD' | 'UPI'>('COD');
-
+  const {
+    states: { address, cartItems, selectedMethod, setSelectedMethod },
+    functions: { paymentHandler },
+  } = usePayment();
   const paymentMethods = ['COD', 'UPI'];
-
-  const handlePayment = () => {
-    if (!selectedMethod) return; // safety
-    // Integrate payment gateway later based on selectedMethod
-    // navigation.navigate('Success');
-  };
 
   return (
     <ScreenWrapper>
@@ -56,7 +49,7 @@ const PaymentScreen = ({ navigation }: any) => {
             </TouchableOpacity>
           ))}
         </View>
-        <CustomButton title="Pay Now" onPress={handlePayment} />
+        <CustomButton title="Pay Now" onPress={paymentHandler} />
       </View>
     </ScreenWrapper>
   );
