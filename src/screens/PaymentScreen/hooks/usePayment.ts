@@ -22,6 +22,7 @@ const usePayment = () => {
   const total = useCartStore(state => state.total);
   const clearCart = useCartStore(state => state.clearCart);
   const address = useCheckoutStore(state => state.address);
+
   const navigation = useNavigation<any>();
   const user = useAuthStore(state => state.user);
   const paymentHandler = async () => {
@@ -81,7 +82,7 @@ const usePayment = () => {
       // order_id: 'order_DslnoIgkIDL8Zt', //Replace this with an order_id created using Orders API.
       prefill: {
         email: user?.email,
-        contact: '+919876543210',
+        contact: '+91' + address?.mobile,
         name: user?.username,
       },
       theme: { color: colors.light.primary },
