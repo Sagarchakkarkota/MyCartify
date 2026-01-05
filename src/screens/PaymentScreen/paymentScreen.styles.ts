@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: scaleHeight(6),
-    width: '30%',
+    width: '40%',
   },
   radio: {
     width: scaleWidth(20),

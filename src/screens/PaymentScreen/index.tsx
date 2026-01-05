@@ -10,7 +10,7 @@ const PaymentScreen = ({ navigation }: any) => {
     states: { address, cartItems, selectedMethod, setSelectedMethod },
     functions: { paymentHandler },
   } = usePayment();
-  const paymentMethods = ['COD', 'UPI'];
+  const paymentMethods = ['COD', 'Online Payment'];
 
   return (
     <ScreenWrapper>

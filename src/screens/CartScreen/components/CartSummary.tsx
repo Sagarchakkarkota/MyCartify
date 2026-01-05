@@ -28,7 +28,7 @@ export default function CartSummary({
         title={'Proceed to Checkout'}
         onPress={() => {
           if (items.length !== 0) {
-            navigation.navigate('Address');
+            navigation.navigate('Checkout', { screen: 'Address' });
           } else {
             Toast.show({
               type: 'error',

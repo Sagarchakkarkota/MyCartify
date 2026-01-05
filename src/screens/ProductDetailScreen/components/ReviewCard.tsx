@@ -1,11 +1,8 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import Rating from './Rating';
-import { moderateScale, scaleFont } from '../../../utils/scale';
-import { colors } from '../../../theme/colors';
-import { hexToRgba } from '../../../utils/hexToRgba.utility';
 import { format } from 'date-fns';
-import { styles } from '../productDetail.styles';
+import React from 'react';
+import { Text, View } from 'react-native'; 
+import { styles } from '../ProductDetail.styles';
+import Rating from './Rating';
 const ReviewCard = ({ reviewData }: { reviewData: any }) => {
   return (
     <View style={styles.reviewCardContainer}>

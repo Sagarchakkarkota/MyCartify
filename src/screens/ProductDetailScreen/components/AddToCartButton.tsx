@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useCartStore } from '../../../store/useCartStore';
-import { styles } from '../productDetail.styles';
 import { quantities } from '../productDetail.constants';
 import { Dropdown } from 'react-native-element-dropdown';
 import { colors } from '../../../theme/colors';
 import { useNavigation } from '@react-navigation/native';
+import { styles } from '../ProductDetail.styles';
 export default function AddToCartButton({ product }: { product: any }) {
   const [quantity, setQuantity] = useState(1);
   const addToCart = useCartStore(state => state.addToCart);

@@ -1,8 +1,9 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { styles } from '../productDetail.styles';
+
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors } from '../../../theme/colors';
+import { styles } from '../ProductDetail.styles';
 
 const Rating = ({ productData }: { productData: any }) => {
   return (

@@ -7,8 +7,8 @@ import ProductCard from '../../components/ProductCard';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import SearchBar from '../../components/SearchBar';
 import { bannerImages } from './homeScreen.constants';
-import { styles } from './homeScreen.styles';
 import useHome from './hooks/useHome';
+import { styles } from './homeScreen.styles';
 
 export default function HomeScreen({ navigation }: any) {
   const {

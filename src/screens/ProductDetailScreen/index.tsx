@@ -7,7 +7,7 @@ import AddToCartButton from './components/AddToCartButton';
 import Rating from './components/Rating';
 import ReviewCard from './components/ReviewCard';
 import useProductDetail from './hooks/useProductDetail';
-import { styles } from './productDetail.styles';
+import { styles } from './ProductDetail.styles';
 
 export default function ProductDetailScreen({ route }: any) {
   const { id } = route.params;
