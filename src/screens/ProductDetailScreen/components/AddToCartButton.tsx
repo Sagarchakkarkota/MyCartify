@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useCartStore } from '../../../store/useCartStore';
-import { quantities } from '../productDetail.constants';
+import { quantities } from '../ProductDetail.constants';
 import { Dropdown } from 'react-native-element-dropdown';
 import { colors } from '../../../theme/colors';
 import { useNavigation } from '@react-navigation/native';

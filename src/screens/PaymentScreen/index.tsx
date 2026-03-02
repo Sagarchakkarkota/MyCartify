@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import usePayment from './hooks/usePayment';
-import { styles } from './paymentScreen.styles';
+import { styles } from './PaymentScreen.styles';
 
 const PaymentScreen = ({ navigation }: any) => {
   const {

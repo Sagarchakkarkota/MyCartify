@@ -5,7 +5,7 @@ import FallBackImage from '../../components/FallBackImage';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { useCartStore } from '../../store/useCartStore';
 import { colors } from '../../theme/colors';
-import { styles } from './cartScreen.styles';
+import { styles } from './CartScreen.styles';
 import CartItem from './components/CartItem';
 import CartSummary from './components/CartSummary';
 

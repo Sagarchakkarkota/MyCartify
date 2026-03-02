@@ -5,7 +5,7 @@ import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import useLogin from './hooks/useLogin';
-import { styles } from './login.styles';
+import { styles } from './Login.styles';
 import { colors } from '../../theme/colors';
 import { moderateScale } from '../../utils/scale';
 

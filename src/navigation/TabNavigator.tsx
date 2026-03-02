@@ -1,12 +1,10 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import Ionicons from '@react-native-vector-icons/ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { useTheme } from '../hooks/useTheme';
+import CartScreen from '../screens/CartScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import CartScreen from '../screens/CartScreen';
-import Ionicons from '@react-native-vector-icons/ionicons';
-import WishlistScreen from '../screens/WishlistScreen';
-import { useTheme } from '../hooks/useTheme';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();

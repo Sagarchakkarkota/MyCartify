@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { IAddressSchema } from '../screens/AddressScreen/addressScreen.types';
+import { IAddressSchema } from '../screens/AddressScreen/AddressScreen.types';
 
 interface ICheckoutStateSChema {
   address: IAddressSchema | null;

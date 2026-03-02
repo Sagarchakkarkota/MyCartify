@@ -1,8 +1,6 @@
 import React from 'react';
 import { FlatList, Pressable, Text } from 'react-native';
-import { styles } from '../screens/HomeScreen/homeScreen.styles';
-import { CATEGORIES } from '../screens/HomeScreen/homeScreen.constants';
-import { scaleHeight } from '../utils/scale';
+import { styles } from '../screens/HomeScreen/HomeScreen.styles';
 
 interface Props {
   data: any;

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 
-import { styles } from './paymentSuccess.styles';
+import { styles } from './PaymentSuccess.styles';
 import { colors } from '../../theme/colors';
 
 type Props = {

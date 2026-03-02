@@ -1,5 +1,5 @@
 // src/screens/HomeScreen/hooks/useProducts.ts
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { globalGetRequest } from '../../../libs/axios/request';
 

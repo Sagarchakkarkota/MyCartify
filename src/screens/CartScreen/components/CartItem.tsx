@@ -2,7 +2,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import React from 'react';
 import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../../theme/colors';
-import { styles } from '../cartScreen.styles';
+import { styles } from '../CartScreen.styles';
 
 export default function CartItem({
   item,

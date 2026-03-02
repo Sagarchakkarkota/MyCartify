@@ -1,9 +1,9 @@
 import { Image, Text, View } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import { colors } from '../../theme/colors';
-import { styles } from './profile.styles';
+import { styles } from './Profile.styles';
 import ScreenWrapper from '../../components/ScreenWrapper';
-import { hexToRgba } from '../../utils/hexToRgba.utility';
+import { hexToRgba } from '../../utils/HexToRgba.utility';
 import { useAuthStore } from '../../store/authStore';
 
 const ProfileScreen = ({ navigation }: any) => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, Image, Pressable } from 'react-native';
-import { styles } from '../screens/HomeScreen/homeScreen.styles';
+import { Image, Pressable, Text, View } from 'react-native';
+import { styles } from '../screens/HomeScreen/HomeScreen.styles';
 
 interface ProductCardProps {
   item: any;

@@ -6,7 +6,7 @@ import {
   scaleWidth,
 } from '../../utils/scale';
 import { colors } from '../../theme/colors';
-import { hexToRgba } from '../../utils/hexToRgba.utility';
+import { hexToRgba } from '../../utils/HexToRgba.utility';
 
 export const styles = StyleSheet.create({
   container: { flex: 1 },

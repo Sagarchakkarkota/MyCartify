@@ -1,6 +1,6 @@
 import { colors } from './colors';
 import { moderateScale } from '../utils/scale';
-import { hexToRgba } from '../utils/hexToRgba.utility';
+import { hexToRgba } from '../utils/HexToRgba.utility';
 
 export const shadows = {
   card: {

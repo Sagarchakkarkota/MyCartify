@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, View } from 'react-native';
 import CustomButton from '../../../components/CustomButton';
-import { styles } from '../cartScreen.styles';
+import { styles } from '../CartScreen.styles';
 import Toast from 'react-native-toast-message';
 
 export default function CartSummary({
