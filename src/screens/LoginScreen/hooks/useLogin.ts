@@ -6,13 +6,19 @@ import { setHeadersToken } from '../../../libs/axios/axiosInstance';
 import { useAuthStore } from '../../../store/authStore';
 import { useNavigation } from '@react-navigation/native';
 
+type LoginPayload = {
+  username: string;
+  password: string;
+};
+
 const useLogin = () => {
   const setUser = useAuthStore(state => state.setUser);
   const setTokens = useAuthStore(state => state.setTokens);
 
   const navigation = useNavigation<any>();
   const loginMutation = useMutation({
-    mutationFn: data => globalPostRequest({ url: '/auth/login', data }),
+    mutationFn: (data: LoginPayload) =>
+      globalPostRequest({ url: '/auth/login', data }),
     onSuccess: data => {
       setHeadersToken(data.accessToken);
       setTokens(data.accessToken, data.refreshToken);

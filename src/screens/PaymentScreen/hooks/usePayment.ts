@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { NativeModules } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useCartStore } from '../../../store/useCartStore';
@@ -8,15 +8,16 @@ import Toast from 'react-native-toast-message';
 import RazorpayCheckout from 'react-native-razorpay';
 import { colors } from '../../../theme/colors';
 import { useAuthStore } from '../../../store/authStore';
-import { TEST_KEY_ID } from '@env';
+import { RAZORPAY_KEY_ID } from '@env';
+import { globalPostRequest } from '../../../libs/axios/request';
 
 const { BiometricModule } = NativeModules;
 
-type PaymentMethod = 'COD' | 'UPI';
+type PaymentMethod = 'COD' | 'Online Payment';
 
 const usePayment = () => {
   const [loading, setLoading] = useState(false);
-  const [selectedMethod, setSelectedMethod] = useState<'COD' | 'UPI'>('COD');
+  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('COD');
 
   const cartItems = useCartStore(state => state.items || []);
   const total = useCartStore(state => state.total);
@@ -25,9 +26,9 @@ const usePayment = () => {
 
   const navigation = useNavigation<any>();
   const user = useAuthStore(state => state.user);
+  const accessToken = useAuthStore(state => state.accessToken);
   const paymentHandler = async () => {
     if (!selectedMethod) return;
-
     try {
       setLoading(true);
 
@@ -39,6 +40,20 @@ const usePayment = () => {
         });
         return;
       }
+
+      if (!accessToken) {
+        Toast.show({
+          type: 'error',
+          text1: 'Login required',
+          text2: 'Please login to continue with online payment',
+          position: 'bottom',
+        });
+        navigation.getParent()?.getParent()?.navigate('Auth', {
+          screen: 'Login',
+        });
+        return;
+      }
+
       if (Platform.OS === 'android') {
         const authenticated = await BiometricModule.authenticate();
 
@@ -51,10 +66,12 @@ const usePayment = () => {
             position: 'bottom',
           });
         }
-        return upiPaymentHandler();
-      }
 
-      //   navigation.navigate('Success'); // or Orders screen
+        await onlinePaymentHandler();
+
+        return;
+      }
+      await onlinePaymentHandler();
     } catch (err: any) {
       Toast.show({
         type: 'error',
@@ -67,19 +84,43 @@ const usePayment = () => {
     }
   };
 
-  const upiPaymentHandler = () => {
-    let options = {
+  const createPaymentOrder = () => {
+    return globalPostRequest({
+      url: '/payments/create-order',
+      data: {
+        amount: Math.round(total() * 100),
+        currency: 'INR',
+        itemCount: cartItems.length,
+      },
+    });
+  };
+
+  const verifyPayment = (data: {
+    razorpay_order_id: string;
+    razorpay_payment_id: string;
+    razorpay_signature: string;
+  }) => {
+    return globalPostRequest({
+      url: '/payments/verify',
+      data,
+    });
+  };
+
+  const onlinePaymentHandler = async () => {
+    const order = await createPaymentOrder();
+
+    const options = {
       description: `Order of ${cartItems.length} items`,
       image: require('../../../assets/images/myCartLogoFilled.png'),
-      currency: 'INR',
-      key: TEST_KEY_ID,
-      amount: String(total() * 100),
+      currency: order.currency || 'INR',
+      key: RAZORPAY_KEY_ID,
+      amount: String(order.amount),
       name: 'MyCartify',
+      order_id: order.id,
       notes: {
         items: cartItems.map(i => i.title).join(', '),
         totalQty: cartItems.reduce((sum, i) => sum + i?.qty, 0),
       },
-      // order_id: 'order_DslnoIgkIDL8Zt', //Replace this with an order_id created using Orders API.
       prefill: {
         email: user?.email,
         contact: '+91' + address?.mobile,
@@ -87,26 +128,12 @@ const usePayment = () => {
       },
       theme: { color: colors.light.primary },
     };
-    RazorpayCheckout.open(options)
-      .then((data: any) => {
-        // // handle success
-        // Toast.show({
-        //   type: 'success',
-        //   text1: `Payment successful with UPI`,
-        //   position: 'bottom',
-        // });
-        navigation.replace('PaymentSuccess');
-        clearCart();
-      })
-      .catch((error: any) => {
-        // handle failure
-        Toast.show({
-          type: 'error',
-          text1: `Payment Failed`,
-          text2: error?.message || 'Try again',
-          position: 'bottom',
-        });
-      });
+
+    const paymentData = await RazorpayCheckout.open(options);
+    await verifyPayment(paymentData);
+
+    navigation.replace('PaymentSuccess');
+    clearCart();
   };
   return {
     states: {

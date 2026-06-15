@@ -23,6 +23,7 @@ const useHome = ({}) => {
     },
     // placeholderData: keepPreviousData,
   });
+  console.log(getAllProducts);
 
   const getAllCategories = useQuery({
     queryKey: ['categories'],

@@ -7,4 +7,8 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
+# react-native-config
+-keep class com.mycartify.BuildConfig { *; }
+-keepresources string/build_config_package
+
 # Add any project specific keep options here:

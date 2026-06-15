@@ -9,6 +9,7 @@ interface IUser {
   image: string;
   lastName: string;
   username: string;
+  role?: string;
 }
 type AuthStore = {
   user: IUser | null;

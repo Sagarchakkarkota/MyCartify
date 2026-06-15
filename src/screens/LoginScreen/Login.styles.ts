@@ -36,4 +36,10 @@ export const styles = StyleSheet.create({
     height: scaleHeight(80),
     borderRadius: moderateScale(12),
   },
+  linkText: {
+    color: colors.light.primary,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginTop: moderateScale(6),
+  },
 });

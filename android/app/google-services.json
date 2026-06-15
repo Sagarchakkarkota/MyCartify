@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "396202133059",
-    "project_id": "neofinance-e0d42",
-    "storage_bucket": "neofinance-e0d42.firebasestorage.app"
+    "project_number": "955080052445",
+    "project_id": "mycartify-64edb",
+    "storage_bucket": "mycartify-64edb.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:396202133059:android:36e40d092ee419ef35f6f6",
+        "mobilesdk_app_id": "1:955080052445:android:5935558bf67936ce5a1534",
         "android_client_info": {
           "package_name": "com.mycartify"
         }
@@ -15,26 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCUoteQkHXKVp2IpgapDMB6a50s61A9-Y0"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:396202133059:android:a277e353ef1fdb9935f6f6",
-        "android_client_info": {
-          "package_name": "com.neofinance"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCUoteQkHXKVp2IpgapDMB6a50s61A9-Y0"
+          "current_key": "AIzaSyCZR2FMHMEAZBu9AGYuHseGBIg63RPINeg"
         }
       ],
       "services": {

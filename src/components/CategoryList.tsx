@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FlatList, Pressable, Text } from 'react-native';
 import { styles } from '../screens/HomeScreen/HomeScreen.styles';
 
@@ -8,7 +8,7 @@ interface Props {
   onSelect: (category: string) => void;
 }
 
-export default function CategoryList({ data, selected, onSelect }: Props) {
+const CategoryList = ({ data, selected, onSelect }: Props) => {
   return (
     <FlatList
       horizontal
@@ -33,4 +33,5 @@ export default function CategoryList({ data, selected, onSelect }: Props) {
       }}
     />
   );
-}
+};
+export default memo(CategoryList);

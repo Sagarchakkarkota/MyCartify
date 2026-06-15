@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import { FlatList, Image, RefreshControl, View } from 'react-native';
 import CategoryList from '../../components/CategoryList';
 import CustomCarousel from '../../components/CustomCarousel';
@@ -9,6 +10,7 @@ import SearchBar from '../../components/SearchBar';
 import { bannerImages } from './HomeScreen.constants';
 import { styles } from './HomeScreen.styles';
 import useHome from './hooks/useHome';
+import { normalizeCategory } from '../../utils/normalizeCategory';
 
 export default function HomeScreen({ navigation }: any) {
   const {
@@ -26,15 +28,32 @@ export default function HomeScreen({ navigation }: any) {
   } = useHome({});
   const initialLoad = getAllProducts.isLoading && skip === 0;
   const total = getAllProducts?.data?.total || 0;
-  const categoryData = getAllCategories?.data?.length
-    ? [
-        {
-          slug: 'all',
-          name: 'All',
-        },
-        ...getAllCategories?.data,
-      ]
-    : [];
+  const categoryData = useMemo(() => {
+    return getAllCategories?.data?.length
+      ? [
+          {
+            slug: 'all',
+            name: 'All',
+          },
+          ...getAllCategories.data.map(normalizeCategory),
+        ]
+      : [];
+  }, [getAllCategories?.data]);
+
+  const handleSearch = useCallback(
+    (value: string) => {
+      setSkip(0);
+      setFilterValue(value);
+    },
+    [setFilterValue, setSkip],
+  );
+  const handleCategorySelect = useCallback(
+    (cat: string) => {
+      setSkip(0);
+      setCategory(cat);
+    },
+    [setSkip, setCategory],
+  );
   return (
     <ScreenWrapper
       style={styles.container}
@@ -45,12 +64,7 @@ export default function HomeScreen({ navigation }: any) {
           source={require('../../assets/images/myCartLogoFilled.png')}
           style={[styles.image]}
         />
-        <SearchBar
-          valueHandler={value => {
-            setSkip(0);
-            setFilterValue(value);
-          }}
-        />
+        <SearchBar valueHandler={handleSearch} />
       </View>
 
       {initialLoad || getAllCategories?.isLoading ? (
@@ -68,10 +82,7 @@ export default function HomeScreen({ navigation }: any) {
                     <CategoryList
                       data={categoryData}
                       selected={category}
-                      onSelect={cat => {
-                        setSkip(0);
-                        setCategory(cat);
-                      }}
+                      onSelect={handleCategorySelect}
                     />
                   </View>
 
